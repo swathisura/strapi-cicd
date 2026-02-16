@@ -1,23 +1,17 @@
-# Use Node.js base image
-FROM node:20-alpine
-
-# Set working directory inside container
+# set working directory
 WORKDIR /app
 
-# Copy package files first (for caching)
-COPY ./app/package*.json ./
+# copy package.json and package-lock.json first
+COPY app/package*.json ./
 
-# Install dependencies
+# install dependencies
 RUN npm install
 
-# Copy the rest of the app
-COPY ./app ./
+# copy the rest of the app
+COPY app/ .
 
-# Build Strapi
-RUN npm run build
-
-# Expose port
+# expose port
 EXPOSE 1337
 
-# Start Strapi
+# start strapi
 CMD ["npm", "start"]
