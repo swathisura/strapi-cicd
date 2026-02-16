@@ -1,7 +1,7 @@
 # set working directory
 WORKDIR /app
 
-# copy package.json and package-lock.json first
+# copy package files first
 COPY app/package*.json ./
 
 # install dependencies
@@ -13,5 +13,6 @@ COPY app/ .
 # expose port
 EXPOSE 1337
 
-# start strapi
+# start Strapi
 CMD ["npm", "start"]
+
