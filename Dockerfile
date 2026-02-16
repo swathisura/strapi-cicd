@@ -1,23 +1,28 @@
+# 1. Use Node Alpine
 FROM node:20-alpine
 
-# Install build tools for better-sqlite3
+# 2. Install build tools
 RUN apk add --no-cache python3 make g++
 
+# 3. Set working directory
 WORKDIR /app
 
-# Copy package files first (for caching)
+# 4. Copy package.json and package-lock.json into /app
 COPY app/package*.json ./
+
+# 5. Install dependencies
 RUN npm install
 
-# Copy the rest of the app
-COPY app .
+# 6. Copy the rest of the app
+COPY app/ ./
 
-# Build Strapi
+# 7. Build Strapi
 RUN npm run build
 
-# Expose port
+# 8. Expose port
 EXPOSE 1337
 
-# Start Strapi
-CMD ["npm", "run", "start"]
+# 9. Start Strapi
+CMD ["npm", "start"]
+
 
