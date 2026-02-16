@@ -1,18 +1,15 @@
-# set working directory
+FROM node:20
+
 WORKDIR /app
 
-# copy package files first
-COPY app/package*.json ./
+COPY package.json package-lock.json* ./
 
-# install dependencies
 RUN npm install
 
-# copy the rest of the app
-COPY app/ .
+COPY . .
 
-# expose port
+RUN npm run build
+
 EXPOSE 1337
-
-# start Strapi
 CMD ["npm", "start"]
 
